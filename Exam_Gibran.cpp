@@ -1,9 +1,16 @@
 #include <iostream>
-#include <Windows.h>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <cstdlib>
+#include <windows.h>
+
 
 int validacion(int RangoLow, int RangoHigh);
 void GuessMyNumber();
 bool SeguroSalir();
+int Inventory();
+//void DisplayInventory(vector<string>& vec);
 using namespace std;
 
 
@@ -16,15 +23,18 @@ int main() {
         cout << "Bienvenido a la sala de juegos" << endl;
         cout << "Este es un examen creado por Gibran Garcia Coss y Leon para la materia de Programacion 2" << endl;
         cout << "Elija la accion que desea realizar" << endl;
-        cout << "1.Play Guess My Number\n2.Exit " << endl;
+        cout << "1.Play Guess My Number\n2.Inventario\n3.Exit " << endl;
         cin >> MainMenuChoice;
         switch (MainMenuChoice)
         {
         case 1:
             GuessMyNumber();
             break;
-
         case 2:
+            Inventory();
+            break;
+
+        case 3:
             SeguroSalir();
             MainContinuar = SeguroSalir();
             break;
@@ -43,6 +53,192 @@ int main() {
 
 
 }
+int Inventory()
+{
+    vector<string> inventory;
+    int MaxFreeSpace = 5;
+    int Gemas = 1000;
+    int NoSpace = 0;
+    int Replace = 0;
+    vector<string>::iterator myIterator;
+    vector<string>::const_iterator iter;
+    cout << "Bienvenido el juego del Inventario, aqui iras seleccionando objetos para llenar tu inventario" << endl;
+    cout << "Pero ten cuidado, tienes espacio limitado y cada objeto cuesta gemas. (Añadir espacios a tu inventario tambien cuesta)" << endl;
+    cout << "Tienes " << MaxFreeSpace << " espacios gratis, y " << Gemas << " gemas disponibles, usalas sabiamente" << endl;
+
+    cout << "Comienza tu aventura y te encuentras una [Espada], asi que la recoges" << endl;
+    inventory.push_back("Espada");
+    system("pause");
+    //DisplayInventory(inventory);  
+    cout << "Este es tu inventario actual" << endl;
+    for (iter = inventory.begin(); iter != inventory.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
+    system("pause");
+
+    cout << "Continuas tu camino y te encuentras un [Arco], por lo que procedes a recogerlo" << endl;
+    inventory.push_back("Arco");
+    system("pause");
+    cout << "Este es tu inventario actual" << endl;
+    for (iter = inventory.begin(); iter != inventory.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
+    system("pause");
+
+    cout << "Pasan las horas y te encuentras un [Artefacto] muy peculiar. Tambien lo recoges" << endl;
+    inventory.push_back("Artefacto");
+    system("pause");
+    cout << "Este es tu inventario actual" << endl;
+    for (iter = inventory.begin(); iter != inventory.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
+    system("pause");
+
+    cout << "Durante la noche ves algo brillar a la distancia, por lo que lo sigues y encuentras un [Espejo]. Te gusta y lo guardas" << endl;
+    inventory.push_back("Espejo");
+    system("pause");
+    cout << "Este es tu inventario actual" << endl;
+    for (iter = inventory.begin(); iter != inventory.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
+    system("pause");
+
+    cout << "A la mañana siguiente despiertas y notas que el arbol que usaste de refugio solto un [Mango], asi que te lo guardas para despues" << endl;
+    inventory.push_back("Mango");
+    system("pause");
+    cout << "Este es tu inventario actual" << endl;
+    for (iter = inventory.begin(); iter != inventory.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
+    system("pause");
+
+    
+    cout << "Cazaste unos conejos para desayunar y te sobro algo de [Carne], decides llevartela para vendarla despues" << endl;
+
+    if (inventory.size() >= MaxFreeSpace)
+    {
+        cout << "Parece que ya no te queda espacio. Que deseas hacer?" << endl;
+        cout << "1.Reemplazar el objeto\n2.Continuar sin el objeto recogido\n3.Añadir un espacio mas por (500) gemas" << endl;
+        cin >> NoSpace;
+        int j = 0;
+        switch (NoSpace)
+        {
+        case 1:
+            cout << "Este es tu inventario actual" << endl;
+           
+            for (iter = inventory.begin(); iter != inventory.end(); iter++)
+            {
+                cout << j << ".- " << *iter << endl;
+                j++;
+            }
+            cout << "Escribe el numero del objeto que quieras intercambiar" << endl;
+            cin >> Replace;
+            cout << "\n Intercambiaste tu " << inventory[Replace] << " por [Carne]" << endl;
+            myIterator = inventory.begin() + 2;
+            *myIterator = "Carne";
+            system("pause");
+            break;
+
+        case 2:
+            cout << "Decides que no vale la pena tirar nada por ese objeto, asi que continuas tu aventura" << endl;
+            cout << "Este es tu inventario actual" << endl;
+            for (iter = inventory.begin(); iter != inventory.end(); iter++)
+            {
+                cout << *iter << endl;
+            }
+            cout << "Estas son tus gemas" << Gemas << endl;
+            system("pause");
+            return 0;
+            break;
+
+        case 3:
+            Gemas = Gemas - 500;
+            MaxFreeSpace = MaxFreeSpace + 1;
+            cout << "Compraste mas espacio usando gemas" << endl;
+            cout << "Estas son tus gemas restantes\n" << Gemas << endl;
+            inventory.push_back("Carne");
+            cout << "Este es tu inventario actual" << endl;
+            for (iter = inventory.begin(); iter != inventory.end(); iter++)
+            {
+                cout << *iter << endl;
+            }
+            system("pause");
+            break;
+        default:
+            cout << "Opcion no valida" << endl;
+            break;
+        }
+       
+
+
+    }
+    cout << "Buscando algo que hacer antes de desayunar encuentras atorada en un arbo una [Hacha vieja], no parece ser de nadie asi que la tomas" << endl;
+    if (inventory.size() >= MaxFreeSpace)
+    {
+        cout << "Parece que ya no te queda espacio. Que deseas hacer?" << endl;
+        cout << "1.Reemplazar el objeto\n2.Continuar sin el objeto recogido\n3.Añadir un espacio mas por (500) gemas" << endl;
+        cin >> NoSpace;
+        int k = 0;
+        switch (NoSpace)
+        {
+        case 1:
+            cout << "Este es tu inventario actual" << endl;
+            
+            for (iter = inventory.begin(); iter != inventory.end(); iter++)
+            {
+                cout << k << ".- " << *iter << endl;
+                k++;
+            }
+            cout << "Escribe el numero del objeto que quieras intercambiar" << endl;
+            cin >> Replace;
+            cout << "\n Intercambiaste tu " << inventory[Replace] << " por [Hacha vieja]" << endl;
+            myIterator = inventory.begin() + 2;
+            *myIterator = "Carne";
+            system("pause");
+            break;
+
+        case 2:
+            cout << "Decides que no vale la pena tirar nada por ese objeto, asi que continuas tu aventura" << endl;
+            cout << "Este es tu inventario actual" << endl;
+            for (iter = inventory.begin(); iter != inventory.end(); iter++)
+            {
+                cout << *iter << endl;
+            }
+            cout << "Estas son tus gemas" << Gemas << endl;
+            system("pause");
+            return 0;
+            break;
+
+        case 3:
+            Gemas = Gemas - 500;
+            MaxFreeSpace = MaxFreeSpace + 1;
+            cout << "Compraste mas espacio usando gemas" << endl;
+            cout << "Estas son tus gemas restantes\n" << Gemas << endl;
+            inventory.push_back("Hacha vieja");
+            cout << "Este es tu inventario actual" << endl;
+            for (iter = inventory.begin(); iter != inventory.end(); iter++)
+            {
+                cout << *iter << endl;
+            }
+            
+            system("pause");
+            cout << "Parece que te acabaste tus gemas magicas y tu espacio, por lo que continuas tu viaje sin entretenerte" << endl;
+            break;
+        default:
+            cout << "Opcion no valida" << endl;
+            break;
+        }
+
+
+
+    }
+}
+
 
 
 
