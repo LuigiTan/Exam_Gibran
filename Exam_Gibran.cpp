@@ -10,6 +10,7 @@ int validacion(int RangoLow, int RangoHigh);
 void GuessMyNumber();
 bool SeguroSalir();
 int Inventory();
+int MatrizSumas();
 //void DisplayInventory(vector<string>& vec);
 using namespace std;
 
@@ -23,7 +24,7 @@ int main() {
         cout << "Bienvenido a la sala de juegos" << endl;
         cout << "Este es un examen creado por Gibran Garcia Coss y Leon para la materia de Programacion 2" << endl;
         cout << "Elija la accion que desea realizar" << endl;
-        cout << "1.Play Guess My Number\n2.Inventario\n3.Exit " << endl;
+        cout << "1.Play Guess My Number\n2.Inventario\n3.Suma de elementos de una matriz\n4.Exit " << endl;
         cin >> MainMenuChoice;
         switch (MainMenuChoice)
         {
@@ -33,8 +34,11 @@ int main() {
         case 2:
             Inventory();
             break;
-
         case 3:
+            MatrizSumas();
+            break;
+
+        case 4:
             SeguroSalir();
             MainContinuar = SeguroSalir();
             break;
@@ -173,7 +177,7 @@ int Inventory()
             cout << "Opcion no valida" << endl;
             break;
         }
-       
+
 
 
     }
@@ -188,7 +192,7 @@ int Inventory()
         {
         case 1:
             cout << "Este es tu inventario actual" << endl;
-            
+
             for (iter = inventory.begin(); iter != inventory.end(); iter++)
             {
                 cout << k << ".- " << *iter << endl;
@@ -225,7 +229,7 @@ int Inventory()
             {
                 cout << *iter << endl;
             }
-            
+
             system("pause");
             cout << "Parece que te acabaste tus gemas magicas y tu espacio, por lo que continuas tu viaje sin entretenerte" << endl;
             break;
@@ -311,7 +315,7 @@ void GuessMyNumber()
     cin >> RandomMax;
 
 
-    int NumRan = rand() % (RandomMax - RandomMin - 1) + RandomMin;
+    int NumRan = rand() % (RandomMax - RandomMin + 1) + RandomMin;
     int RangoRespMax = NumRan + 5;
     int RangoRespMin = NumRan - 5;
 
@@ -404,7 +408,48 @@ void GuessMyNumber()
     } while (VolverAJugar == true);
 }
 
+int MatrizSumas()
+{
+    int MatrizPrincipal[3][4] = { {1, 3, 1, 4},
+                                 {9, 8, 7, 9},
+                                 {3, 2, 1, 5} };
+    int SumaPares = 0;
+    int SumaPosiciones = 0;
+    int ParesMenosPosiciones = 0;
+    cout << "Esta es la matriz sobre la cual trabajaremos: " << endl;
 
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            cout << MatrizPrincipal[i][j]<<"  ";
+        }
+        cout << endl;
+    }
+
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            if (MatrizPrincipal[i][j] % 2 == 0)
+            {
+                SumaPares = SumaPares + MatrizPrincipal[i][j];
+                SumaPosiciones = SumaPosiciones + (j + (i * 10));
+                cout << MatrizPrincipal[i][j] << " Es par y se sumo al resto de pares"<<endl;
+                cout << "Y su posicion en la matriz es: " << i << " , " << j << endl<<endl;
+            }
+        }
+        
+    }
+
+    cout << "La suma de los numeros pares en la matriz es: " << SumaPares<<endl;
+    cout << "La suma de las pocisiones de los numeros pares en la matriz es: " << SumaPosiciones << endl;
+    ParesMenosPosiciones = SumaPares - SumaPosiciones;
+    cout << "La resta de los numeros pares menos las pocisiones en la matriz es: " << ParesMenosPosiciones << endl;
+    cout << "Presiona [ENTER] para continuar y finalizar el programa (eso borrara la pantalla)" << endl;
+    system("pause");
+    return 0;
+}
 
 
 
