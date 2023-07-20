@@ -460,7 +460,15 @@ int MatrizSumas()
 
 void NumeroVectores()
 {
+    vector<int> numeros{4444, 5656, 120, 206, 755, 9958, 7641, 8554};
+    vector<int>* pNumeros = &numeros;
+    Calculate(pNumeros);
+    cout << "El numero con mas digitos pares es" << pNumeros->at(1) << "y esta en" << &pNumeros << endl;
+}
 
+int Calculate(vector<int>* NumerList)
+{
+    
 }
 ///To do   
 
