@@ -11,6 +11,10 @@ void GuessMyNumber();
 bool SeguroSalir();
 int Inventory();
 int MatrizSumas();
+
+void NumeroVectores();
+void MascotaVirtual();
+
 //void DisplayInventory(vector<string>& vec);
 using namespace std;
 
@@ -24,7 +28,7 @@ int main() {
         cout << "Bienvenido a la sala de juegos" << endl;
         cout << "Este es un examen creado por Gibran Garcia Coss y Leon para la materia de Programacion 2" << endl;
         cout << "Elija la accion que desea realizar" << endl;
-        cout << "1.Play Guess My Number\n2.Inventario\n3.Suma de elementos de una matriz\n4.Exit " << endl;
+        cout << "1.Play Guess My Number\n2.Inventario\n3.Suma de elementos de una matriz\n4.Numero mayor con vectores\n5.Mascota virtual\n6.Exit " << endl;
         cin >> MainMenuChoice;
         switch (MainMenuChoice)
         {
@@ -39,6 +43,14 @@ int main() {
             break;
 
         case 4:
+            NumeroVectores();
+            break;
+
+        case 5:
+            MascotaVirtual();
+            break;
+
+        case 6:
             SeguroSalir();
             MainContinuar = SeguroSalir();
             break;
@@ -244,9 +256,6 @@ int Inventory()
 }
 
 
-
-
-
 int validacion(int RangoLow, int RangoHigh) {
     int Respuesta = 0;
 
@@ -257,8 +266,6 @@ int validacion(int RangoLow, int RangoHigh) {
     } while (Respuesta > RangoHigh || Respuesta < RangoLow);
     return  Respuesta;
 }
-
-
 
 bool SeguroSalir()
 {
@@ -451,8 +458,168 @@ int MatrizSumas()
     return 0;
 }
 
+void NumeroVectores()
+{
+
+}
+///To do   
 
 
+class Critter
+{
+public:
+    Critter(int hunger = 0, int boredom = 0, int thirst = 0);
 
+    void Talk();
+    void Eat(int food = 4);
+    void Play(int fun = 4);
+    void Drink(int water = 4);
+    void DisplayValues();
+
+private:
+    int m_Hunger;
+    int m_Boredom;
+    int m_Thirst;
+    void PassTime(int time = 1);
+};
+
+Critter::Critter(int hunger, int boredom, int thirst) :
+    m_Hunger(hunger),
+    m_Boredom(boredom),
+    m_Thirst(thirst)
+{}
+
+
+void Critter::PassTime(int time)
+{
+    m_Hunger += time;
+    m_Boredom += time+1;
+    m_Thirst += time+2;
+}
+
+void Critter::Talk()
+{
+    /*Implementar código
+    */
+
+    //Menos que 4 es bueno, 4 - 9 es medio , 10 - 15 es malo, 16+ es muerte
+    if (m_Hunger < 4 && m_Boredom < 4 && m_Thirst < 4) //Bueno
+    {
+        cout << "Hola amo, estoy muy feliz!" << endl;
+    }
+    else if ((m_Hunger > 15) || (m_Boredom > 15)  || (m_Thirst > 15 )) //Muerte
+    {
+        cout << "Tu mascota ha muerto. Te quiso hasta el final\n            GAME OVER\n";
+        exit(0);
+    }
+    else if ((m_Hunger > 9 && m_Hunger < 16) || (m_Boredom > 9 && m_Boredom < 16) || (m_Thirst > 9 && m_Thirst < 16))//Alto
+    {
+        cout << "Amo, me estoy muriendo, ayudame" << endl;
+    }
+    else if ((m_Hunger > 4 && m_Hunger < 10) || (m_Boredom > 4 && m_Boredom < 10) || (m_Thirst > 4 && m_Thirst < 10))//Medio
+    {
+        cout << "Hola amo, no me siento muy bien..." << endl;
+    }
+
+    if (m_Hunger >= 4)
+    {
+        cout << "Amo, tengo mucha hambre" << endl;
+    }
+    if (m_Boredom >= 4)
+    {
+        cout << "Amo, estoy muy aburrido..." << endl;
+    }
+    if (m_Thirst >= 4)
+    {
+        cout << "Amo, tengo mucha sed" << endl;
+    }
+     
+    DisplayValues();
+    PassTime();
+}
+
+void Critter::Eat(int food)
+{
+    cout << "\nBrrupp. \n";
+    m_Hunger -= food;
+    if (m_Hunger < 0)
+    {
+        m_Hunger = 0;
+    }
+    DisplayValues();
+    PassTime();
+}
+
+void Critter::Play(int fun)
+{
+    cout << "\nWheee!\n";
+    m_Boredom -= fun;
+    if (m_Boredom < 0)
+    {
+        m_Boredom = 0;
+    }
+    DisplayValues();
+    PassTime();
+}
+
+void Critter::Drink(int water)
+{
+    cout << "\n SCHLOP SCHLOP SCHLOP SCHLOP SCHLOP\n";
+    m_Thirst -= water;
+    if (m_Thirst < 0)
+    {
+        m_Thirst = 0;
+    }
+    DisplayValues();
+    PassTime();
+}
+void Critter::DisplayValues()
+{
+    cout << "Valores de tu mascota:" << endl;
+    cout << "Hambre: " << m_Hunger << endl;
+    cout << "Aburrimiento: " << m_Boredom << endl;
+    cout << "Sed: " << m_Thirst << endl<<endl;
+}
+void MascotaVirtual()
+{
+    {
+        Critter crit;
+        crit.Talk();
+        int choice;
+        do
+        {
+            
+            cout << "\n Mascotas Virtuales\n\n";
+            cout << "0 - Salir.\n";
+            cout << "1 - Escucha a tu mascota.\n";
+            cout << "2 - Alimentar.\n";
+            cout << "3 - Jugar con tu mascota.\n";
+            cout << "4 - Darle de tomar a tu mascota \n";
+            cout << "Elige una opcion: ";
+            cin >> choice;
+            switch (choice)
+            {
+            case 0:
+                cout << "Vuelve pronto!.\n";
+                cout << "DISCLAIMER: Ninguna creatura real o virtual en 3D fue lastimada durante este juego \n";
+                break;
+            case 1:
+                crit.Talk();
+                break;
+            case 2:
+                crit.Eat();
+                break;
+            case 3:
+                crit.Play();
+                break;
+            case 4:
+                crit.Drink();
+                break;
+            default:
+                cout << "\n Tu elección es inválida. \n";
+            }
+        } while (choice != 0);
+    }
+}
 
 
